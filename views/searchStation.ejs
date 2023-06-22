@@ -1,0 +1,15 @@
+<%- include('partials/header') -%>
+<h1>Search Station</h1>
+    <div>
+        <form action="/searchStation" method="post">
+            <label for="station">Station name: </label>
+            <input type="text" name="station" id="">
+            <button type="submit">submit</button>
+        </form>
+    </div>
+    <div>
+        <% array.forEach(function(item){ %>
+            <p><%= item.name %>, <%= item.state_name %> (<%= item.code %>)</p>
+       <% }) %>
+    </div>
+<%- include('partials/footer') -%>

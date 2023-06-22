@@ -1,0 +1,28 @@
+<%- include('partials/header') -%>
+<div>
+    <form action="/trainsBetweenStations" method="post">
+        <label for="From">From : </label>
+        <input type="text" name="originStation" id="">
+        <label for="To">To:</label>
+        <input type="text" name="destStation">
+        <button type="submit">submit</button>
+    </form>
+</div>
+<div>
+    <table>
+        <tr>
+          <th>Train no</th>
+          <th>New Train no</th>
+          <th>Train Name</th>
+        </tr>
+
+        <% array.forEach(function(item){ %>
+        <tr>
+          <td><%= item.train_number %></td>
+          <td><%= item.new_train_number %> </td>
+          <td><%= item.train_name %></td>
+        </tr>
+        <% }) %>
+      </table>
+</div>
+<%- include('partials/footer') -%>
