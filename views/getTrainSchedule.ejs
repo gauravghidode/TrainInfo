@@ -1,2 +1,37 @@
 <%- include('partials/header') -%>
+
+<h1>Train Schedule</h1>
+
+<form action="/getTrainSchedule" method="post">
+    <label for="">Enter Train no.</label>
+    <input type="text" name = "trainno">
+    <button type="submit">Submit</button>
+</form>
+<table>
+    <tr>
+        <th>Sr no.</th>
+        <th>Station</th>
+        <th>Code</th>
+        <Th>Arrival</Th>
+        <th>Departure</th>
+        <th>Distance</th>
+        <th>Day</th>
+    </tr>
+
+    <%try{ %>
+        <% var traindata = JSON.parse(trnrdata).data; %>
+        <%for(var i=0;i < traindata.length ; i++){%>
+            <tr>
+                <th><%=i+1%>.</th>
+                <td><%=traindata[i].source_stn_name%></td>
+                <td><%=traindata[i].source_stn_code%></td>
+                <td><%=traindata[i].arrive%></td>
+                <td><%=traindata[i].depart%></td>
+                <td><%=traindata[i].distance%></td>
+                <td><%=traindata[i].day%></td>
+            </tr>
+        <%}%>
+    <%}catch(error){}%>
+</table>
+
 <%- include('partials/footer') -%>

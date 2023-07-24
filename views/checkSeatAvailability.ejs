@@ -1,2 +1,46 @@
 <%- include('partials/header') -%>
+
+<h1>Check Seat Availability</h1>
+<form action="/checkSeatAvailability" method="post">
+    <label for="">From:</label>
+    <input type="text" name="from">
+    <label for="">To:</label>
+    <input type="text" name="to">
+    <label for="">Quota</label>
+    <input type="text" name="quota" id="">
+    <label for="">Class</label>
+    <input type="text" name="class" id="">
+    <label for="">Date</label>
+    <input type="date" name="date">
+    <label for="">Train No.</label>
+    <input type="text" name="trainno" id="">
+    <button type="submit">Get Availability</button>
+</form>
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Availability</th>
+                <th>Total Fare</th>
+                <th>Confirmation probability</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%try{%>
+                <%var traindata= JSON.parse(trndata).data;%>
+                <%for(var i=0;i < traindata.length; i++){%>
+                    <tr>
+                        <td><%=traindata[i].date%></td>
+                        <td><%=traindata[i].current_status%></td>
+                        <td><%=traindata[i].total_fare%></td>
+                        <td><%=traindata[i].confirm_probability_percent%></td>
+                    </tr>
+                <%}%>
+            <%}catch(err){}%>
+        </tbody>
+    </table>
+</div>
+
 <%- include('partials/footer') -%>

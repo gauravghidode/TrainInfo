@@ -1,10 +1,13 @@
 <%- include('partials/header') -%>
 <div>
     <form action="/trainsBetweenStations" method="post">
-        <label for="From">From : </label>
-        <input type="text" name="originStation" id="">
-        <label for="To">To:</label>
-        <input type="text" name="destStation">
+        <label for="">From : </label>
+        <input type="text" name="from" id="">
+        <label for="">To:</label>
+        <input type="text" name="to">
+        <label for="">Select Date(optional)</label>
+        <input type="checkbox" name="checkbox">
+        <input type="date" name="date">
         <button type="submit">submit</button>
     </form>
 </div>
@@ -12,17 +15,23 @@
     <table>
         <tr>
           <th>Train no</th>
-          <th>New Train no</th>
           <th>Train Name</th>
+          <th>Departure</th>
+          <th>Arrival</th>
+          <th>days</th>
         </tr>
 
-        <% array.forEach(function(item){ %>
+        <% try{%>
+        <% var traindata = JSON.parse(trndata).data %>
+        <% for(var i=0 ;i < traindata.length; i++){ %>
         <tr>
-          <td><%= item.train_number %></td>
-          <td><%= item.new_train_number %> </td>
-          <td><%= item.train_name %></td>
+          <td><%= traindata[i].train_base.train_no %></td>
+          <td><%= traindata[i].train_base.train_name%> </td>
+          <td><%= traindata[i].train_base.from_stn_code%>: <%=traindata[i].train_base.from_time%></td>
+          <td><%= traindata[i].train_base.to_stn_code%>: <%=traindata[i].train_base.to_time%></td>
+          <td><%=traindata[i].train_base.running_days%></td>
         </tr>
-        <% }) %>
+        <%} } catch(error){}%>
       </table>
 </div>
 <%- include('partials/footer') -%>

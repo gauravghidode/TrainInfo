@@ -1,2 +1,65 @@
 <%- include('partials/header') -%>
+<%- include('partials/header') -%>
+
+<h1>Train Live Status</h1>
+
+<form action="/getTrainLiveStatus" method="post">
+    <label for="">Enter Train no.</label>
+    <input type="text" name = "trainno">
+    <label for="">Started <input type="text" name="day" id="">days ago</label>
+    <button type="submit">Submit</button>
+</form>
+<div>
+    <%try{%>
+    <%var traindata = JSON.parse(trndata).data;%>
+    
+    <p>Start Date: <%=traindata.train_start_date%>  -  <%=traindata.title%></p>
+    <p>Train Name: <%=traindata.train_name%> </p>
+    <p>Source: <%=traindata.source%>  destination: <%=traindata.destination%></p>
+    <p><%=traindata.run_days%></p>
+    <p><%=traindata.new_message%></p>
+    <p><%=traindata.current_location_info[0].readable_message%></p>
+    <table>
+        <thead>
+        <tr>
+            <th>S.no</th>
+            <th>Station name</th>
+            <th>Station code</th>
+            <th>ETA</th>
+            <th>ETD</th>
+            <th>Distance covered</th>
+            <th>Delay</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%for(var i=0;i < traindata.previous_stations.length ; i++){%>
+            <tr>
+                <th><%=i+1%>.</th>
+                <td><%=traindata.previous_stations[i].station_name%></td>
+                <td><%=traindata.previous_stations[i].station_code%></td>
+                <td><%=traindata.previous_stations[i].eta%></td>
+                <td><%=traindata.previous_stations[i].etd%></td>
+                <td><%=traindata.previous_stations[i].distance_from_source%></td>
+                <td><%=traindata.previous_stations[i].arrival_delay%> mins</td>
+            </tr>
+        <%}%>
+
+        <p><b><%=traindata.current_location_info[0].readable_message%></b></p>
+
+        <%for(var i=0;i < traindata.upcoming_stations.length ; i++){%>
+            <tr>
+                <td><%=i+1%>.</td>
+                <td><%=traindata.upcoming_stations[i].station_name%></td>
+                <td><%=traindata.upcoming_stations[i].station_code%></td>
+                <td><%=traindata.upcoming_stations[i].eta%></td>
+                <td><%=traindata.upcoming_stations[i].etd%></td>
+                <td><%=traindata.upcoming_stations[i].distance_from_source%></td>
+                <td><%=traindata.upcoming_stations[i].arrival_delay%> mins</td>
+            </tr>
+        <%}%>
+        </tbody>
+    </table>
+    <%}catch(error){}%>
+</div>
+
 <%- include('partials/footer') -%>

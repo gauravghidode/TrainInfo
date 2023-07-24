@@ -1,2 +1,24 @@
 <%- include('partials/header') -%>
+<h1>Get PNR Status</h1>
+
+<div>
+    <form action="/getPnrStatus" method="post">
+        <label for="">PNR Number: </label>
+        <input type="text" name="pnr" id="">
+        <button type="submit">submit</button>
+    </form>
+</div>
+<div>
+    <%var trainInfo = traindata.data.trainInfo, passengerInfo = traindata.data.passengerInfo, destinationInfo=traindata.data.destinationInfo, boardingInfo=traindata.data.boardingInfo %>
+    <p>Train No: <%=trainInfo.trainNo%></p>
+    <p>Train Name: <%=trainInfo.name%></p>
+    <%for(var i=0;i < passengerInfo.length; i++){%>
+        <p>Passenger<%=i+1%> : <%=passengerInfo[i].currentCoach%>/<%=passengerInfo[i].currentBerthNo%></p>
+    <%}%>
+    <p><%trainInfo.dt%></p>
+    <p>From : <%=trainInfo.boarding%> - <%=boardingInfo.stationName%> Departure:<%=boardingInfo.departureTime%></p>
+    <p>To : <%=trainInfo.destination%> - <%=destinationInfo.stationName%> Arrival:<%=destinationInfo.arrivalTime%></p>
+
+
+</div>
 <%- include('partials/footer') -%>
